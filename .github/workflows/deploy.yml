@@ -1,5 +1,8 @@
 name: remote ssh command
-on: [push]
+on:
+  push:
+    branches:
+      - master_backend_deploy
 jobs:
 
   build:
