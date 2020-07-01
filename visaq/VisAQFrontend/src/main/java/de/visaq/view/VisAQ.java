@@ -1,5 +1,7 @@
 package de.visaq.view;
 
+import static def.angular.platform_browser_dynamic.Globals.platformBrowserDynamic;
+
 import java.util.ArrayList;
 
 import de.visaq.view.elements.navbar.Navbar;
@@ -40,6 +42,7 @@ public class VisAQ {
      */
     public static void main(String[] args) {
         setInstance(new VisAQ());
+        platformBrowserDynamic().bootstrapModule(VisAQ.class);
     }
    
     /**
