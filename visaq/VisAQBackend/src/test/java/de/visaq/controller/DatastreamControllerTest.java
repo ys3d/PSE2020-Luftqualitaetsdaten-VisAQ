@@ -44,12 +44,12 @@ public class DatastreamControllerTest {
 
     @Test
     public void testMultiDatastreamGetByThing() {
-        assertFalse(CONTROLLER.get(SensorthingsControllerTests.ALIVETHING).isEmpty());
+        assertFalse(CONTROLLER.getAll(SensorthingsControllerTests.ALIVETHING).isEmpty());
     }
 
     @Test
     public void testMultiDatastreamGetBySensor() {
-        assertFalse(CONTROLLER.get(SensorthingsControllerTests.ALIVESENSOR).isEmpty());
+        assertFalse(CONTROLLER.getAll(SensorthingsControllerTests.ALIVESENSOR).isEmpty());
     }
 
     @Test

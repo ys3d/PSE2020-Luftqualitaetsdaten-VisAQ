@@ -30,7 +30,7 @@ public class CookieNotice {
     }
     
     /**
-     * Stores the user data on the client side.
+     * Stores the user data on the client side
      */
     private void storeUserData() {
         

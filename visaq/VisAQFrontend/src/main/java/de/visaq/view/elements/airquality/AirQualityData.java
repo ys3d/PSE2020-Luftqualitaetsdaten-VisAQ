@@ -18,9 +18,7 @@ public abstract class AirQualityData {
     /**
      * Sole constructor of the class.
      * 
-     * @param name              The name
-     * @param primaryColor      The primary Color
-     * @param secondaryColor    The secondary Color
+     * @param name  The name
      */
     public AirQualityData(String name, Color primaryColor, Color secondaryColor)  {
         this.name = name;

@@ -67,6 +67,16 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
         currentView.show();
     }
 
+    /**
+     * Sets the instance of the current Air Quality Data.
+     * 
+     * @param currentAirQualityData A instance of Air Quality Data.
+     */
+    public void setCurrentAirQualityData(AirQualityData currentAirQualityData) {
+        this.currentAirQualityData = currentAirQualityData;
+        notifyObserver();
+    }
+
     @Override
     public void attach(NavbarObserver navbarObserver) {
         observer.add(navbarObserver);
@@ -96,16 +106,6 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
         }
     }
    
-    /**
-     * Sets the instance of the current Air Quality Data.
-     * 
-     * @param currentAirQualityData A instance of Air Quality Data.
-     */
-    private void setCurrentAirQualityData(AirQualityData currentAirQualityData) {
-        this.currentAirQualityData = currentAirQualityData;
-        notifyObserver();
-    } 
-    
     /**
      * Sets the current View.
      * 

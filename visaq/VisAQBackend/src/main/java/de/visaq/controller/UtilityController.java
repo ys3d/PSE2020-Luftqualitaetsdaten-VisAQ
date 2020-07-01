@@ -12,7 +12,11 @@ import de.visaq.model.sensorthings.UnitOfMeasurement;
 /**
  * Implements some utility functions that allow for easier model construction.
  */
-public class UtilityController {
+public final class UtilityController {
+
+    private UtilityController() {
+    }
+
     /**
      * Constructs a UnitOfMeasurement instance from a JSON Object.
      * 

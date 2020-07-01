@@ -14,6 +14,7 @@ import de.visaq.model.sensorthings.Observation;
  * Encapsulates the control over FeatureOfIntrest objects.
  */
 public class FeatureOfInterestController extends SensorthingController<FeatureOfInterest> {
+    public static final String MAPPING = "/api/featureOfInterest";
 
     @Override
     public ArrayList<FeatureOfInterest> getAll() {

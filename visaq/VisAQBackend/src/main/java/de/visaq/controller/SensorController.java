@@ -13,6 +13,8 @@ import de.visaq.model.sensorthings.Thing;
  * Encapsulates the control over Sensor objects.
  */
 public class SensorController extends SensorthingController<Sensor> {
+    public static final String MAPPING = "/api/sensor";
+
     @Override
     public ArrayList<Sensor> getAll() {
         // TODO Auto-generated method stub
@@ -25,7 +27,7 @@ public class SensorController extends SensorthingController<Sensor> {
      * @param thing Thing the Sensor objects are associated with.
      * @return An array of Sensor objects that were retrieved.
      */
-    public ArrayList<Sensor> get(Thing thing) {
+    public ArrayList<Sensor> getAll(Thing thing) {
         // TODO Auto-generated method stub
         return null;
     }

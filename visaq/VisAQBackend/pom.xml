@@ -142,19 +142,19 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.geotools</groupId>
-		    <artifactId>gt-process</artifactId>
-		    <version>23.1</version>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-process</artifactId>
+			<version>23.1</version>
 		</dependency>
 		<dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-process-feature</artifactId>
-            <version>23.1</version>
-        </dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-process-feature</artifactId>
+			<version>23.1</version>
+		</dependency>
 		<dependency>
-		    <groupId>org.geotools</groupId>
-		    <artifactId>gt-geometry</artifactId>
-		    <version>23.1</version>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-geometry</artifactId>
+			<version>23.1</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -163,23 +163,57 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>libs/</classpathPrefix>
+							<mainClass>
+								de.visaq.VisAQ
+							</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>copy-dependencies</id>
+            <phase>prepare-package</phase>
+            <goals>
+                <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+                <outputDirectory>
+                    ${project.build.directory}/libs
+                </outputDirectory>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 		</plugins>
 	</build>
 	<repositories>
-	    <repository>
-		      <id>osgeo-release</id>
-		      <name>OSGeo Repository</name>
-		      <url>https://repo.osgeo.org/repository/release/</url>
-		      <!-- Contains releases for OSGeo projects: GeoTools, GeoWebCache, GeoServer, ...     -->
-		      <!-- Includes third-party-dependences, and caches of:                                -->
-		      <!-- ucar (https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases) -->
-		      <!-- geosolutions (http://maven.geo-solutions.it/)                                   -->
-		      <snapshots>
-		          <enabled>false</enabled>
-		      </snapshots>
-		      <releases>
-		          <enabled>true</enabled>
-		      </releases>
-	    </repository>
-    </repositories>
+		<repository>
+			<id>osgeo-release</id>
+			<name>OSGeo Repository</name>
+			<url>https://repo.osgeo.org/repository/release/</url>
+			<!-- Contains releases for OSGeo projects: GeoTools, GeoWebCache, GeoServer, 
+				... -->
+			<!-- Includes third-party-dependences, and caches of: -->
+			<!-- ucar (https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases) -->
+			<!-- geosolutions (http://maven.geo-solutions.it/) -->
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
 </project>

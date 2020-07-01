@@ -36,7 +36,7 @@ public class SensorControllerTest {
 
     @Test
     public void testMultiSensorGetByThing() {
-        assertFalse(CONTROLLER.get(SensorthingsControllerTests.ALIVETHING).isEmpty());
+        assertFalse(CONTROLLER.getAll(SensorthingsControllerTests.ALIVETHING).isEmpty());
     }
 
     @Test

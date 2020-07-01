@@ -1,10 +1,10 @@
 package de.visaq.controller;
 
-import java.awt.Polygon;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
+import org.locationtech.jts.geom.Envelope;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,10 +32,10 @@ public class ThingController extends SensorthingController<Thing> {
     /**
      * Retrieves the Thing objects spatially located inside the specified polygon.
      * 
-     * @param polygon Polygon the Thing objects are located inside of.
+     * @param envelope Covers the area of all allowed locations
      * @return An array of Thing objects that were retrieved.
      */
-    public ArrayList<Thing> get(Polygon polygon) {
+    public ArrayList<Thing> getAll(Envelope envelope) {
         // TODO Auto-generated method stub
         return null;
     }

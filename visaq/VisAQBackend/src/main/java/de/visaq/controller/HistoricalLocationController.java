@@ -14,6 +14,7 @@ import de.visaq.model.sensorthings.Thing;
  * Encapsulates the control over HistoricalLocation objects.
  */
 public class HistoricalLocationController extends SensorthingController<HistoricalLocation> {
+    public static final String MAPPING = "/api/historicalLocation";
 
     @Override
     public ArrayList<HistoricalLocation> getAll() {

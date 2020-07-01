@@ -1,5 +1,7 @@
 package de.visaq.view.theme;
 
+import java.awt.Color;
+
 /**
  * Abstranct class that encapsulates the methods for Color Themes.
  */

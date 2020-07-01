@@ -13,6 +13,7 @@ import de.visaq.model.sensorthings.Thing;
  * Encapsulates the control over Location objects.
  */
 public class LocationController extends SensorthingController<Location> {
+    public static final String MAPPING = "/api/location";
 
     @Override
     public ArrayList<Location> getAll() {

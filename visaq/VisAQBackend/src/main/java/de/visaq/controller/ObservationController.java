@@ -18,6 +18,8 @@ import de.visaq.model.sensorthings.ObservedProperty;
  * Encapsulates the control over Observation objects.
  */
 public class ObservationController extends SensorthingController<Observation> {
+    public static final String MAPPING = "/api/observation";
+
     @Override
     public ArrayList<Observation> getAll() {
         // TODO Auto-generated method stub
