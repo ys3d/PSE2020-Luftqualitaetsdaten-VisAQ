@@ -19,8 +19,9 @@ import de.visaq.controller.link.MultiNavigationLink;
 public class Sensor extends Sensorthing<Sensor> implements SensorthingsProperties {
     public final String description;
     public final String name;
-    public final Map<String, Object> properties;
     public final MultiNavigationLink<Datastream> datastreamsLink;
+
+    private final Map<String, Object> properties;
 
     /**
      * Constructs a new {@link Sensor}.
@@ -48,21 +49,13 @@ public class Sensor extends Sensorthing<Sensor> implements SensorthingsPropertie
         return super.equals(obj);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object getPropertyByKey(String key) {
-        // TODO Auto-generated method stub
-        return null;
+        return properties.get(key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean hasProperties(String key) {
-        // TODO Auto-generated method stub
-        return false;
+        return properties.containsKey(key);
     }
 }

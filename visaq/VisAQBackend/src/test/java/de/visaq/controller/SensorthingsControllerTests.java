@@ -71,7 +71,8 @@ public class SensorthingsControllerTests {
 
             ALIVETHING = new ThingController().singleBuild(new JSONObject(new JSONTokener(
                     SensorthingsControllerTests.class.getResourceAsStream("/alive_thing.json"))));
-        };
+        }
+        
     };
 
 }
