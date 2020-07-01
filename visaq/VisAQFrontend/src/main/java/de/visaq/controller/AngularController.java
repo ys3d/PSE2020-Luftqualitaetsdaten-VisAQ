@@ -1,5 +1,7 @@
 package de.visaq.controller;
 
+import java.util.HashMap;
+
 import de.visaq.model.Sensorthing;
 import de.visaq.view.VisAQ;
 import def.angular.core.NgModule;
@@ -14,7 +16,9 @@ import def.angular.platform_browser.BrowserModule;
 )
 
 public class AngularController {
+	private Sensorthing sensorThing = new Sensorthing();
     private Request request = new Request();
+    Gson gson = new Gson();
     
     /**
      * The request to the Server is send here through an angular application. It returns a json data
@@ -23,8 +27,9 @@ public class AngularController {
      * @param input     Input that specifies the request 
      * @return the Sensorthing used in the view
      */
-    public synchronized Sensorthing sendRequest(String input) {
+    public synchronized Sensorthing sendRequest(String input, HashMap<String, Object> params) {
         request.json();
-        return null;
+        sensorThing = gson.fromJson(request.json(), Sensorthing.class);
+        return sensorThing;
     }
 }
