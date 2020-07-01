@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import de.visaq.model.Sensorthing;
 import de.visaq.view.VisAQ;
 import def.angular.core.NgModule;
-import def.angular.http.Request;
+import def.angular.http.Http;
 import def.angular.http.RequestOptions;
 import def.angular.platform_browser.BrowserModule;
 
@@ -21,8 +21,9 @@ import def.angular.platform_browser.BrowserModule;
 
 public class AngularController {
     private Sensorthing sensorThing;
-    private Request request = new Request();
     Gson gson = new Gson();
+    Http http = new Http();
+    String savedJson;
     
     /**
      * The request to the Server is send here through an angular application. It returns a json data
@@ -33,10 +34,8 @@ public class AngularController {
      * @return the Sensorthing used in the view
      */
     public synchronized Sensorthing sendRequest(String input, HashMap<String, Object> params) {
-        
-        request.json();
-       
-        sensorThing = gson.fromJson((String) request.json(), Sensorthing.class);
+        savedJson = gson.toJson(http.post(input, params));
+        sensorThing = gson.fromJson(savedJson, Sensorthing.class);
         return sensorThing;
     }
 }
