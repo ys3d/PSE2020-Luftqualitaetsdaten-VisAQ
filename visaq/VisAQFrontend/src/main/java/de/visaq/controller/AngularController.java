@@ -9,7 +9,15 @@ import de.visaq.view.VisAQ;
 import def.angular.core.NgModule;
 import def.angular.http.Http;
 import def.angular.http.RequestOptions;
+import def.angular.http.Response;
 import def.angular.platform_browser.BrowserModule;
+import def.dom.EventListener;
+import def.dom.XMLHttpRequest;
+import def.rxjs.rxjs.Observable;
+import jsweet.lang.Function;
+import jsweet.lang.JSON;
+import def.angular.*;
+
 
 /**
  * Controller that requests data from the server.
@@ -24,7 +32,7 @@ public class AngularController {
     Gson gson = new Gson();
     Http http = new Http();
     String savedJson;
-    
+    XMLHttpRequest xml = new XMLHttpRequest();
     /**
      * The request to the Server is send here through an angular application. It returns a json data
      * that is parsed to a Sensorthing data
@@ -34,8 +42,10 @@ public class AngularController {
      * @return the Sensorthing used in the view
      */
     public synchronized Sensorthing sendRequest(String input, HashMap<String, Object> params) {
-        savedJson = gson.toJson(http.post(input, params));
-        sensorThing = gson.fromJson(savedJson, Sensorthing.class);
-        return sensorThing;
+    	
+    	xml.open("POST", "https://visaq.de", true);
+    	xml.setRequestHeader("Sensorthing", input);
+    	xml.send(JSON.stringify(params));
+		return sensorThing;
     }
 }
