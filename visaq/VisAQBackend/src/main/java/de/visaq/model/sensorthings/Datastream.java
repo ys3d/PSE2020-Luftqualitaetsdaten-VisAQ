@@ -25,6 +25,7 @@ public class Datastream extends Sensorthing<Datastream> implements SensorthingsP
     public final MultiNavigationLink<Observation> observationsLink;
     public final SingleNavigationLink<Sensor> sensorLink;
     public final SingleNavigationLink<Thing> thingLink;
+    private final Map<String, Object> properties;
 
     /**
      * Constructs a new {@link Datastream}.
@@ -55,6 +56,7 @@ public class Datastream extends Sensorthing<Datastream> implements SensorthingsP
         this.observationsLink = observationsLink;
         this.sensorLink = sensorLink;
         this.thingLink = thingLink;
+        this.properties = properties;
     }
 
     @Override
@@ -63,22 +65,14 @@ public class Datastream extends Sensorthing<Datastream> implements SensorthingsP
         return super.equals(obj);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object getPropertyByKey(String key) {
-        // TODO Auto-generated method stub
-        return null;
+        return properties.get(key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean hasProperties(String key) {
-        // TODO Auto-generated method stub
-        return false;
+        return properties.containsKey(key);
     }
 
 }
