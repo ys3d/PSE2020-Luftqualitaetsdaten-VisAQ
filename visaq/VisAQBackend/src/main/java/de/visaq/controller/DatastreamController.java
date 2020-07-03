@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.visaq.controller.link.MultiNavigationLink;
 import de.visaq.controller.link.MultiOnlineLink;
+import de.visaq.controller.link.SingleNavigationLink;
 import de.visaq.controller.link.SingleOnlineLink;
 import de.visaq.model.sensorthings.Datastream;
 import de.visaq.model.sensorthings.Observation;
@@ -95,17 +97,25 @@ public class DatastreamController extends SensorthingController<Datastream> {
             return null;
         }
 
+        SingleNavigationLink<Sensor> sensor = new SingleNavigationLink.Builder<Sensor>()
+                .build("Sensor@iot.navigationLink", "Sensor", new SensorController(), json);
+        SingleNavigationLink<Thing> thing = new SingleNavigationLink.Builder<Thing>()
+                .build("Thing@iot.navigationLink", "Thing", new ThingController(), json);
+        MultiNavigationLink<Observation> observations =
+                new MultiNavigationLink.Builder<Observation>().build(
+                        "Observations@iot.navigationLink", "Observations",
+                        new ObservationController(), json);
+        SingleNavigationLink<ObservedProperty> observedProperty =
+                new SingleNavigationLink.Builder<ObservedProperty>().build(
+                        "ObservedProperty@iot.navigationLink", "ObservedProperty",
+                        new ObservedPropertyController(), json);
+
         Datastream datastream = new Datastream(json.getString("@iot.id"),
                 json.getString("@iot.selfLink"), false, json.getString("name"),
                 json.getString("description"), UtilityController.buildProperties(json),
-                json.getString("observationType"),
-                new SingleOnlineLink<Sensor>(json.getString("Sensor@iot.navigationLink"), false),
-                new SingleOnlineLink<Thing>(json.getString("Thing@iot.navigationLink"), false),
-                new MultiOnlineLink<Observation>(json.getString("Observations@iot.navigationLink"),
-                        false),
+                json.getString("observationType"), sensor, thing, observations,
                 UtilityController.buildUnitOfMeasurement(json.getJSONObject("unitOfMeasurement")),
-                new SingleOnlineLink<ObservedProperty>(
-                        json.getString("ObservedProperty@iot.navigationLink"), false));
+                observedProperty);
         return datastream;
     }
 }

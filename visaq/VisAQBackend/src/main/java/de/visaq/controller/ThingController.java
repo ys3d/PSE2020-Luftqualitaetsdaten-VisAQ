@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.visaq.controller.link.MultiNavigationLink;
 import de.visaq.controller.link.MultiOnlineLink;
 import de.visaq.controller.link.SingleOnlineLink;
 import de.visaq.model.sensorthings.Datastream;
@@ -55,15 +56,20 @@ public class ThingController extends SensorthingController<Thing> {
             return null;
         }
 
+        MultiNavigationLink<Datastream> datastreams = new MultiNavigationLink.Builder<Datastream>()
+                .build("Datastreams@iot.navigationLink", "Datastreams", new DatastreamController(),
+                        json);
+        MultiNavigationLink<HistoricalLocation> historicalLocations =
+                new MultiNavigationLink.Builder<HistoricalLocation>().build(
+                        "HistoricalLocations@iot.navigationLink", "HistoricalLocations",
+                        new HistoricalLocationController(), json);
+        MultiNavigationLink<Location> locations = new MultiNavigationLink.Builder<Location>()
+                .build("Locations@iot.navigationLink", "Locations", new LocationController(), json);
+
         Thing thing = new Thing(json.getString("@iot.id"), json.getString("@iot.selfLink"), false,
                 json.getString("description"), json.getString("name"),
-                UtilityController.buildProperties(json),
-                new MultiOnlineLink<Datastream>(json.getString("Datastreams@iot.navigationLink"),
-                        false),
-                new MultiOnlineLink<HistoricalLocation>(
-                        json.getString("HistoricalLocations@iot.navigationLink"), false),
-                new MultiOnlineLink<Location>(json.getString("Locations@iot.navigationLink"),
-                        false));
+                UtilityController.buildProperties(json), datastreams, historicalLocations,
+                locations);
         return thing;
     }
 }

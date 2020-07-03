@@ -17,7 +17,8 @@ public class ThingControllerTest {
 
     @Test
     public void testSingleThingGet() {
-        SingleOnlineLink<Thing> sol = new SingleOnlineLink<Thing>("/Things?$top=1", true);
+        SingleOnlineLink<Thing> sol =
+                new SingleOnlineLink<Thing>("/Things?$top=1&$expand=Datastreams", true);
         sol.get(CONTROLLER);
         sol.get(CONTROLLER);
     }
