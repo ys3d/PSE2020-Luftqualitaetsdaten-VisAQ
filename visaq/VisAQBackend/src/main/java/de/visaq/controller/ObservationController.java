@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.locationtech.jts.geom.Envelope;
 
-import de.visaq.controller.link.SingleOnlineLink;
+import de.visaq.controller.link.SingleNavigationLink;
 import de.visaq.model.sensorthings.Datastream;
 import de.visaq.model.sensorthings.FeatureOfInterest;
 import de.visaq.model.sensorthings.Observation;
@@ -69,14 +69,19 @@ public class ObservationController extends SensorthingController<Observation> {
                 return null;
             }
 
+            SingleNavigationLink<Datastream> datastream =
+                    new SingleNavigationLink.Builder<Datastream>().build(
+                            "Datastream@iot.navigationLink", "Datastream",
+                            new DatastreamController(), json);
+            SingleNavigationLink<FeatureOfInterest> featureOfInterest =
+                    new SingleNavigationLink.Builder<FeatureOfInterest>().build(
+                            "FeatureOfInterest@iot.navigationLink", "FeatureOfInterest",
+                            new FeatureOfInterestController(), json);
+
             Observation observation = new Observation(json.getString("@iot.id"),
                     json.getString("@iot.selfLink"), false,
                     UtilityController.buildTime(json, "phenomenonTime"), json.getDouble("result"),
-                    UtilityController.buildTime(json, "resultTime"),
-                    new SingleOnlineLink<Datastream>(
-                            json.getString("Datastream@iot.navigationLink"), false),
-                    new SingleOnlineLink<FeatureOfInterest>(
-                            json.getString("FeatureOfInterest@iot.navigationLink"), false));
+                    UtilityController.buildTime(json, "resultTime"), datastream, featureOfInterest);
             return observation;
         } catch (JSONException e) {
             return null;

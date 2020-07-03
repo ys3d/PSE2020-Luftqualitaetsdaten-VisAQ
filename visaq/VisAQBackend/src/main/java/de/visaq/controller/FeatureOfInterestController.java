@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import de.visaq.controller.link.MultiOnlineLink;
+import de.visaq.controller.link.MultiNavigationLink;
 import de.visaq.model.sensorthings.FeatureOfInterest;
 import de.visaq.model.sensorthings.Observation;
 
@@ -53,12 +53,14 @@ public class FeatureOfInterestController extends SensorthingController<FeatureOf
                 return null;
             }
 
+            MultiNavigationLink<Observation> observations =
+                    new MultiNavigationLink.Builder<Observation>().build(
+                            "Observations@iot.navigationLink", "Observations",
+                            new ObservationController(), json);
+
             FeatureOfInterest featureOfIntrest = new FeatureOfInterest(json.getString("@iot.id"),
                     json.getString("@iot.selfLink"), false, json.getString("description"),
-                    json.getString("name"),
-                    new MultiOnlineLink<Observation>(
-                            json.getString("Observations@iot.navigationLink"), false),
-                    json.getJSONObject("feature").toMap());
+                    json.getString("name"), observations, json.getJSONObject("feature").toMap());
             return featureOfIntrest;
         } catch (JSONException e) {
             return null;

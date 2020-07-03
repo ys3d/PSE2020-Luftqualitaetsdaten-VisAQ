@@ -54,7 +54,7 @@ public abstract class SensorthingController<SensorthingT extends Sensorthing<Sen
     /**
      * Builds the Sensorthings objects using the specified JSON.
      * 
-     * @param json Sensorthings objects codified as JSON.
+     * @param json Sensorthings objects codified as JSONObject.
      * @return The Sensorthings objects that were constructed.
      */
     public ArrayList<SensorthingT> multiBuild(JSONObject json) {
@@ -64,12 +64,21 @@ public abstract class SensorthingController<SensorthingT extends Sensorthing<Sen
             return objects;
         }
 
-        JSONArray array = json.getJSONArray("value");
+        return multiBuild(json.getJSONArray("value"));
+    }
+
+    /**
+     * Builds the Sensorthings objects using the specified JSON.
+     * 
+     * @param array Sensorthings objects codified as JSONArray.
+     * @return The Sensorthings objects that were constructed.
+     */
+    public ArrayList<SensorthingT> multiBuild(JSONArray array) {
         int length = array.length();
         ArrayList<SensorthingT> objects = new ArrayList<SensorthingT>();
 
         for (int i = 0; i < length; i++) {
-            objects.add(singleBuild(json.getJSONArray("value").getJSONObject(i)));
+            objects.add(singleBuild(array.getJSONObject(i)));
         }
 
         return objects;
