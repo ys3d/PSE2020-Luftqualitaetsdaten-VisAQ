@@ -15,8 +15,6 @@ public class VisAQ {
 	private AirQualityData[] airQualityData;
     private static VisAQ instance = new VisAQ();
    
-    
-
     /**
      * Gets the current Language instance.
      * 
@@ -48,6 +46,7 @@ public class VisAQ {
     public static void main(String[] args) {
     	
     	alert("This example writes 'Hello world' in the document!");
+    	System.out.println("Starting VisAQ.js example");
 		HTMLElement e = document.getElementById("target");
 		e.innerHTML = "Hello world!";
         
