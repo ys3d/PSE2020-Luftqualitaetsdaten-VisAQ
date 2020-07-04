@@ -1,10 +1,14 @@
 package de.visaq.view.elements.navbar;
 
+import static def.dom.Globals.document;
+
 import java.util.ArrayList;
 
 import de.visaq.view.NavbarObserver;
 import de.visaq.view.View;
 import de.visaq.view.elements.airquality.AirQualityData;
+import def.dom.HTMLElement;
+import jsweet.util.StringTypes.button;
 
 /**
  * The Navbar shows the Navigation Bar and gives access to the Air Quality Data, Toolbar, Expert
@@ -19,6 +23,8 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
     private AirQualityData currentAirQualityData;
     private View currentView;
     private ArrayList<NavbarObserver> observer;
+    HTMLElement navbar = document.createElement("Navbar");
+    
 
     /**
      * Constructor for a new Navbar instance.
@@ -48,9 +54,15 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
         if (expertMapView) {
             expertViewFilter.show();
         }
+        
         showAirQualityDatas();
         searchbar.show();
         // TODO Auto-generated method stub
+        navbar.onmouseenter = e -> {
+        	openToolbar();
+			return e;
+        };
+        document.body.appendChild(button);
     }
 
     /**
@@ -65,16 +77,6 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
      */
     public void showView() {
         currentView.show();
-    }
-
-    /**
-     * Sets the instance of the current Air Quality Data.
-     * 
-     * @param currentAirQualityData A instance of Air Quality Data.
-     */
-    public void setCurrentAirQualityData(AirQualityData currentAirQualityData) {
-        this.currentAirQualityData = currentAirQualityData;
-        notifyObserver();
     }
 
     @Override
@@ -106,6 +108,16 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
         }
     }
    
+    /**
+     * Sets the instance of the current Air Quality Data.
+     * 
+     * @param currentAirQualityData A instance of Air Quality Data.
+     */
+    private void setCurrentAirQualityData(AirQualityData currentAirQualityData) {
+        this.currentAirQualityData = currentAirQualityData;
+        notifyObserver();
+    } 
+    
     /**
      * Sets the current View.
      * 
