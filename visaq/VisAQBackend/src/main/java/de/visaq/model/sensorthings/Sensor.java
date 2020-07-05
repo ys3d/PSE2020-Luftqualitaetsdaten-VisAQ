@@ -44,12 +44,6 @@ public class Sensor extends Sensorthing<Sensor> implements SensorthingsPropertie
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
-    }
-
-    @Override
     public Object getPropertyByKey(String key) {
         return properties.get(key);
     }
