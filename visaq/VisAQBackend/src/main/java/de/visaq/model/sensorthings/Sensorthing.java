@@ -1,5 +1,7 @@
 package de.visaq.model.sensorthings;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -38,4 +40,24 @@ public abstract class Sensorthing<SensorthingT extends Sensorthing<SensorthingT>
         this.id = id;
         this.selfLink = new SingleLocalLink<SensorthingT>(selfUrl, relative, this);
     }
+
+    /**
+     * Checks if to {@link Sensorthing} are equal, by checking if the id of the objects are the
+     * same.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Sensorthing)) {
+            return false;
+        }
+        Sensorthing<?> other = (Sensorthing<?>) obj;
+        return Objects.equals(id, other.id);
+    }
+
 }

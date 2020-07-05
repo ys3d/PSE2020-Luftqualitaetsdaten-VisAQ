@@ -60,12 +60,6 @@ public class Datastream extends Sensorthing<Datastream> implements SensorthingsP
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
-    }
-
-    @Override
     public Object getPropertyByKey(String key) {
         return properties.get(key);
     }
