@@ -247,3 +247,7 @@ target/
 
 # ObjectAID
 *.ucls
+
+.jsweet/
+.generated/
+.js/
