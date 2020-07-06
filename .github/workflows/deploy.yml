@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - master_backend_deploy
+  pull_request:
+    branches:
+      - master_backend_deploy
 jobs:
 
   build:
