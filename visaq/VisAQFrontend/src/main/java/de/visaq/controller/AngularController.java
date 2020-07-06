@@ -8,10 +8,13 @@ import java.util.HashMap;
 import de.visaq.model.Sensorthing;
 import de.visaq.view.VisAQ;
 import def.angular.core.NgModule;
-import def.angular.http.Request;
+import def.angular.http.Http;
+import def.angular.http.RequestOptions;
+import def.angular.http.Response;
 import def.angular.platform_browser.BrowserModule;
 import def.dom.XMLHttpRequest;
 import def.js.JSON;
+
 
 /**
  * Controller that requests data from the server.

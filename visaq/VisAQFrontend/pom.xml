@@ -112,6 +112,28 @@
 			<artifactId>angular2</artifactId>
 			<version>2.0.0-20170726</version>
 		</dependency>
+		<dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>1.2</version>
+    </dependency>
+    <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.3.1</version>
+</dependency>
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.13</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-commons</artifactId>
+    <version>1.5.2</version><!--$NO-MVN-MAN-VER$-->
+    <scope>test</scope>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>
