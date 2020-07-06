@@ -4,13 +4,14 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
-import org.locationtech.jts.geom.Envelope;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.visaq.controller.link.MultiNavigationLink;
 import de.visaq.controller.link.MultiOnlineLink;
 import de.visaq.controller.link.SingleOnlineLink;
+import de.visaq.model.Square;
 import de.visaq.model.sensorthings.Datastream;
 import de.visaq.model.sensorthings.HistoricalLocation;
 import de.visaq.model.sensorthings.Location;
@@ -30,18 +31,21 @@ public class ThingController extends SensorthingController<Thing> {
     }
 
     /**
-     * Retrieves the Thing objects spatially located inside the specified polygon.
+     * Retrieves the Thing objects spatially located inside the specified square.
      * 
-     * @param envelope Covers the area of all allowed locations
+     * @param square Covers the area of all allowed locations
      * @return An array of Thing objects that were retrieved.
      */
-    public ArrayList<Thing> getAll(Envelope envelope) {
-        // TODO Auto-generated method stub
-        return null;
+    @PostMapping(value = MAPPING + "/all", params = { "square" })
+    public ArrayList<Thing> getAll(Square square) {
+        return new MultiOnlineLink<Thing>(MessageFormat
+                .format("/Thing?$filter=st_within(location, geography''{{0}}'')", square), true)
+                        .get(this);
+
     }
 
-    @PostMapping(MAPPING)
     @Override
+    @PostMapping(value = MAPPING, params = { "id" })
     public Thing get(@RequestParam String id) {
         return (Thing) new SingleOnlineLink<Thing>(MessageFormat.format("/Things(''{0}'')", id),
                 true).get(this);
@@ -55,15 +59,20 @@ public class ThingController extends SensorthingController<Thing> {
             return null;
         }
 
+        MultiNavigationLink<Datastream> datastreams = new MultiNavigationLink.Builder<Datastream>()
+                .build("Datastreams@iot.navigationLink", "Datastreams", new DatastreamController(),
+                        json);
+        MultiNavigationLink<HistoricalLocation> historicalLocations =
+                new MultiNavigationLink.Builder<HistoricalLocation>().build(
+                        "HistoricalLocations@iot.navigationLink", "HistoricalLocations",
+                        new HistoricalLocationController(), json);
+        MultiNavigationLink<Location> locations = new MultiNavigationLink.Builder<Location>()
+                .build("Locations@iot.navigationLink", "Locations", new LocationController(), json);
+
         Thing thing = new Thing(json.getString("@iot.id"), json.getString("@iot.selfLink"), false,
                 json.getString("description"), json.getString("name"),
-                UtilityController.buildProperties(json),
-                new MultiOnlineLink<Datastream>(json.getString("Datastreams@iot.navigationLink"),
-                        false),
-                new MultiOnlineLink<HistoricalLocation>(
-                        json.getString("HistoricalLocations@iot.navigationLink"), false),
-                new MultiOnlineLink<Location>(json.getString("Locations@iot.navigationLink"),
-                        false));
+                UtilityController.buildProperties(json), datastreams, historicalLocations,
+                locations);
         return thing;
     }
 }

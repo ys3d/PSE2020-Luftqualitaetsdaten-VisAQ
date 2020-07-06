@@ -46,26 +46,14 @@ public class ObservedProperty extends Sensorthing<ObservedProperty>
         this.datastreamsLink = datastreamsLink;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object getPropertyByKey(String key) {
-        return null;
+        return properties.get(key);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean hasProperties(String key) {
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
+        return properties.containsKey(key);
     }
 
 }

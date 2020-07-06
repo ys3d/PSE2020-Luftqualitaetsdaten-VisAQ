@@ -41,41 +41,23 @@ public class HistoricalLocation extends Sensorthing<HistoricalLocation>
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        return super.equals(obj);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isOlder(SensorthingsTimeStamp other) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isNewer(SensorthingsTimeStamp other) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isEqualOld(SensorthingsTimeStamp other) {
         // TODO Auto-generated method stub
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Instant getTimeStamp() {
         // TODO Auto-generated method stub

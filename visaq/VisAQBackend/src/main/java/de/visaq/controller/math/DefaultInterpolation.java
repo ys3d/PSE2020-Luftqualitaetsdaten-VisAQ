@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 import org.geotools.process.vector.BarnesSurfaceInterpolator;
 import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Envelope;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.visaq.model.PointDatum;
+import de.visaq.model.Square;
 import de.visaq.model.sensorthings.ObservedProperty;
 
 /**
@@ -20,19 +20,19 @@ public class DefaultInterpolation extends Interpolation {
     public static final String MAPPING = "/api/interpolation/default";
 
     @Override
-    protected PointDatum[] interpolateCoordinates(Envelope envelope,
+    protected PointDatum[] interpolateCoordinates(Square square,
             ArrayList<Coordinate> coordinates) {
         // TODO
         float[][] interpolated = new BarnesSurfaceInterpolator((Coordinate[]) coordinates.toArray())
-                .computeSurface(envelope, -1, -1);
+                .computeSurface(square, -1, -1);
 
         return null;
     }
 
     @PostMapping(MAPPING)
     @Override
-    public PointDatum[] interpolate(@RequestParam Envelope envelope, @RequestParam Instant time,
+    public PointDatum[] interpolate(@RequestParam Square square, @RequestParam Instant time,
             @RequestParam TemporalAmount range, @RequestParam ObservedProperty observedProperty) {
-        return super.interpolate(envelope, time, range, observedProperty);
+        return super.interpolate(square, time, range, observedProperty);
     }
 }
