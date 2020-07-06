@@ -6,11 +6,11 @@ import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 
 import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Envelope;
 
 import de.visaq.controller.FeatureOfInterestController;
 import de.visaq.controller.ObservationController;
 import de.visaq.model.PointDatum;
+import de.visaq.model.Square;
 import de.visaq.model.sensorthings.FeatureOfInterest;
 import de.visaq.model.sensorthings.Observation;
 import de.visaq.model.sensorthings.ObservedProperty;
@@ -20,19 +20,19 @@ import de.visaq.model.sensorthings.ObservedProperty;
  */
 public abstract class Interpolation {
     /**
-     * Interpolates all Observations within the specified envelope and time range.
+     * Interpolates all Observations within the specified square and time range.
      * 
-     * @param envelope         Covers the area of all allowed locations
+     * @param square           Covers the area of all allowed locations
      * @param time             A point in time
      * @param range            The Observation must have been recorded in [time - range, time +
      *                         range]
      * @param observedProperty The ObservedProperty that was observed
      * @return An array of PointData
      */
-    public PointDatum[] interpolate(Envelope envelope, Instant time, TemporalAmount range,
+    public PointDatum[] interpolate(Square square, Instant time, TemporalAmount range,
             ObservedProperty observedProperty) {
         ArrayList<Observation> observations =
-                new ObservationController().getAll(envelope, time, range, observedProperty);
+                new ObservationController().getAll(square, time, range, observedProperty);
         FeatureOfInterestController controller = new FeatureOfInterestController();
         ArrayList<Coordinate> coordinates = new ArrayList<>();
 
@@ -45,17 +45,17 @@ public abstract class Interpolation {
             }
         });
 
-        return interpolateCoordinates(envelope, coordinates);
+        return interpolateCoordinates(square, coordinates);
     }
 
     /**
-     * Interpolates a Coordinate ArrayList inside the specified envelope.
+     * Interpolates a Coordinate ArrayList inside the specified square.
      * 
-     * @param envelope    Covers the x,y-plane of all allowed coordinates
+     * @param square      Covers the x,y-plane of all allowed coordinates
      * @param coordinates An ArrayList of Coordinate objects, each Coordinate represents a Point in
      *                    space (x,y) and value (z)
      * @return Interpolated array of PointData
      */
-    protected abstract PointDatum[] interpolateCoordinates(Envelope envelope,
+    protected abstract PointDatum[] interpolateCoordinates(Square square,
             ArrayList<Coordinate> coordinates);
 }

@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
-import org.locationtech.jts.geom.Envelope;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.visaq.controller.link.MultiNavigationLink;
 import de.visaq.controller.link.MultiOnlineLink;
 import de.visaq.controller.link.SingleOnlineLink;
+import de.visaq.model.Square;
 import de.visaq.model.sensorthings.Datastream;
 import de.visaq.model.sensorthings.HistoricalLocation;
 import de.visaq.model.sensorthings.Location;
@@ -31,18 +31,15 @@ public class ThingController extends SensorthingController<Thing> {
     }
 
     /**
-     * Retrieves the Thing objects spatially located inside the specified polygon.
+     * Retrieves the Thing objects spatially located inside the specified square.
      * 
-     * @param envelope Covers the area of all allowed locations
+     * @param square Covers the area of all allowed locations
      * @return An array of Thing objects that were retrieved.
      */
-    @PostMapping(value = MAPPING + "/all", params = { "envelope" })
-    public ArrayList<Thing> getAll(Envelope envelope) {
-        String polygonString = MessageFormat.format("POLYGON(({0} {1}, {2} {3}, {4} {5}, {6} {7}))",
-                envelope.getMaxX(), envelope.getMinY(), envelope.getMinX(), envelope.getMinY(),
-                envelope.getMinX(), envelope.getMaxY(), envelope.getMaxX(), envelope.getMaxY());
-        return new MultiOnlineLink<Thing>(MessageFormat.format(
-                "/Thing?$filter=st_within(location, geography''{{0}}'')", polygonString), true)
+    @PostMapping(value = MAPPING + "/all", params = { "square" })
+    public ArrayList<Thing> getAll(Square square) {
+        return new MultiOnlineLink<Thing>(MessageFormat
+                .format("/Thing?$filter=st_within(location, geography''{{0}}'')", square), true)
                         .get(this);
 
     }
