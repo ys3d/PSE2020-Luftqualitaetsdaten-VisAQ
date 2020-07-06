@@ -25,6 +25,7 @@ public class Datastream extends Sensorthing<Datastream> implements SensorthingsP
     public final MultiNavigationLink<Observation> observationsLink;
     public final SingleNavigationLink<Sensor> sensorLink;
     public final SingleNavigationLink<Thing> thingLink;
+    public final SingleNavigationLink<ObservedProperty> observedPropertyLink;
     private final Map<String, Object> properties;
 
     /**
@@ -56,6 +57,7 @@ public class Datastream extends Sensorthing<Datastream> implements SensorthingsP
         this.observationsLink = observationsLink;
         this.sensorLink = sensorLink;
         this.thingLink = thingLink;
+        this.observedPropertyLink = observedPropertyLink;
         this.properties = properties;
     }
 

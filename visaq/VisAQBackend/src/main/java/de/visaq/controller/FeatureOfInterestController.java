@@ -1,12 +1,16 @@
 package de.visaq.controller;
 
 import java.awt.Point;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import de.visaq.controller.link.MultiNavigationLink;
+import de.visaq.controller.link.MultiOnlineLink;
+import de.visaq.controller.link.SingleOnlineLink;
 import de.visaq.model.sensorthings.FeatureOfInterest;
 import de.visaq.model.sensorthings.Observation;
 
@@ -18,14 +22,14 @@ public class FeatureOfInterestController extends SensorthingController<FeatureOf
 
     @Override
     public ArrayList<FeatureOfInterest> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return new MultiOnlineLink<FeatureOfInterest>("/FeaturesOfInterest", true).get(this);
     }
 
     @Override
+    @PostMapping(value = MAPPING, params = { "id" })
     public FeatureOfInterest get(String id) {
-        // TODO Auto-generated method stub
-        return null;
+        return (FeatureOfInterest) new SingleOnlineLink<FeatureOfInterest>(
+                MessageFormat.format("/FeaturesOfInterest(''{0}'')", id), true).get(this);
     }
 
     /**

@@ -1,10 +1,14 @@
 package de.visaq.controller;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import de.visaq.controller.link.MultiNavigationLink;
+import de.visaq.controller.link.MultiOnlineLink;
+import de.visaq.controller.link.SingleOnlineLink;
 import de.visaq.model.sensorthings.Datastream;
 import de.visaq.model.sensorthings.ObservedProperty;
 
@@ -16,8 +20,7 @@ public class ObservedPropertyController extends SensorthingController<ObservedPr
 
     @Override
     public ArrayList<ObservedProperty> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return new MultiOnlineLink<ObservedProperty>("/ObservedProperties", true).get(this);
     }
 
     /**
@@ -26,15 +29,16 @@ public class ObservedPropertyController extends SensorthingController<ObservedPr
      * @param datastream The Datastream entity
      * @return The ObservedProperty
      */
+    @PostMapping(value = MAPPING, params = { "datastream" })
     public ObservedProperty get(Datastream datastream) {
-        // TODO Auto-generated method stub
-        return null;
+        return (ObservedProperty) datastream.observedPropertyLink.get(this);
     }
 
     @Override
+    @PostMapping(value = MAPPING, params = { "id" })
     public ObservedProperty get(String id) {
-        // TODO Auto-generated method stub
-        return null;
+        return (ObservedProperty) new SingleOnlineLink<ObservedProperty>(
+                MessageFormat.format("/ObservedProperties(''{0}'')", id), true).get(this);
     }
 
     @Override
