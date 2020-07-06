@@ -36,13 +36,19 @@ public class ThingController extends SensorthingController<Thing> {
      * @param envelope Covers the area of all allowed locations
      * @return An array of Thing objects that were retrieved.
      */
+    @PostMapping(value = MAPPING + "/all", params = { "envelope" })
     public ArrayList<Thing> getAll(Envelope envelope) {
-        // TODO Auto-generated method stub
-        return null;
+        String polygonString = MessageFormat.format("POLYGON(({0} {1}, {2} {3}, {4} {5}, {6} {7}))",
+                envelope.getMaxX(), envelope.getMinY(), envelope.getMinX(), envelope.getMinY(),
+                envelope.getMinX(), envelope.getMaxY(), envelope.getMaxX(), envelope.getMaxY());
+        return new MultiOnlineLink<Thing>(MessageFormat.format(
+                "/Thing?$filter=st_within(location, geography''{{0}}'')", polygonString), true)
+                        .get(this);
+
     }
 
-    @PostMapping(MAPPING)
     @Override
+    @PostMapping(value = MAPPING, params = { "id" })
     public Thing get(@RequestParam String id) {
         return (Thing) new SingleOnlineLink<Thing>(MessageFormat.format("/Things(''{0}'')", id),
                 true).get(this);

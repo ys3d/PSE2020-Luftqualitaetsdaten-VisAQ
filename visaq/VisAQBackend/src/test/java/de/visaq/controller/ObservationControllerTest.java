@@ -40,6 +40,6 @@ public class ObservationControllerTest {
 
     @Test
     public void testMultiObservationGetByDatastream() {
-        assertFalse(CONTROLLER.get(SensorthingsControllerTests.ALIVEDATASTREAM).isEmpty());
+        assertFalse(CONTROLLER.getAll(SensorthingsControllerTests.ALIVEDATASTREAM).isEmpty());
     }
 }

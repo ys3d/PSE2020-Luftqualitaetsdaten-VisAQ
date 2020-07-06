@@ -32,7 +32,7 @@ public abstract class Interpolation {
     public PointDatum[] interpolate(Envelope envelope, Instant time, TemporalAmount range,
             ObservedProperty observedProperty) {
         ArrayList<Observation> observations =
-                new ObservationController().get(envelope, time, range, observedProperty);
+                new ObservationController().getAll(envelope, time, range, observedProperty);
         FeatureOfInterestController controller = new FeatureOfInterestController();
         ArrayList<Coordinate> coordinates = new ArrayList<>();
 
