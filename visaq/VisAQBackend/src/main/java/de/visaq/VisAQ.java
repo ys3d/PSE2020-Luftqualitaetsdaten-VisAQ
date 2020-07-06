@@ -10,6 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VisAQ {
 
     /**
+     * Version of the server-software.
+     */
+    public static final String VERSION = "0.0.1";
+
+    /**
      * Spring application entry point.
      * 
      * @param args An array of arguments passed to the Spring Application on startup
