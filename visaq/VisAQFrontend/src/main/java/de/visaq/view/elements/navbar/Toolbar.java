@@ -1,7 +1,12 @@
 package de.visaq.view.elements.navbar;
 
-import de.visaq.view.theme.ColorTheme;
-import de.visaq.view.theme.DarkTheme;
+import static def.dom.Globals.document;
+import static def.dom.Globals.window;
+
+import de.visaq.view.Language;
+import def.dom.Document;
+import def.dom.HTMLElement;
+import def.dom.HTMLIFrameElement;
 
 /**
  * Shows the User links and definitions to the different functions and informations.
@@ -9,6 +14,13 @@ import de.visaq.view.theme.DarkTheme;
 public class Toolbar implements NavbarElement {
 
     private boolean historicalMapView = false;
+    HTMLElement toolbar = document.createElement("toolbar");
+    private HTMLElement diyButton = document.createElement("DIY");
+    private HTMLElement pmDefButton = document.createElement("PM Definition");
+    private HTMLElement causesPmButton = document.createElement("PM Causes");
+    private HTMLElement smartAqButton = document.createElement("SmartAQNet");
+    private HTMLElement historicalData = document.createElement("Historical Data");
+    
 
     /**
      * Constructor for the Navbar.
@@ -21,14 +33,18 @@ public class Toolbar implements NavbarElement {
      * Contains the link to the DIY site.
      */
     private void diy() {
-        // TODO Auto-generated method stub
+        diyButton.onclick = e -> {
+            window.location.replace("https://www.smartaq.net/de/participate/");
+            return e;
+        };
+        toolbar.appendChild(diyButton);
     }
 
     /**
      * Contains the definition for PM.
      */
     private void pmDefiniton() {
-        // TODO Auto-generated method stub
+    	toolbar.appendChild(pmDefButton);
     }
 
     /**
@@ -42,7 +58,11 @@ public class Toolbar implements NavbarElement {
      * Contains a link to the site of smartAQNet.
      */
     private void smartAqNet() {
-        // TODO Auto-generated method stub
+        smartAqButton.onclick = e -> {
+            window.location.replace("https://www.smartaq.net/en/dashboard/#/home");
+            return e;
+        };
+        toolbar.appendChild(smartAqButton);
     }
 
     /**
@@ -52,6 +72,7 @@ public class Toolbar implements NavbarElement {
 
         this.setHistoricalMapView(true);
         // TODO Auto-generated method stub
+        toolbar.appendChild(historicalData);
     }
 
     @Override

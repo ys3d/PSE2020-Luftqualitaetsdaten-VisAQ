@@ -17,8 +17,9 @@ public abstract class AirQualityData {
     
     /**
      * Sole constructor of the class.
-     * 
-     * @param name  The name
+     * @param name           Name of the data
+     * @param primaryColor   PrimaryColor used for gradient
+     * @param secondaryColor SecondaryColor used for gradient
      */
     public AirQualityData(String name, Color primaryColor, Color secondaryColor)  {
         this.name = name;

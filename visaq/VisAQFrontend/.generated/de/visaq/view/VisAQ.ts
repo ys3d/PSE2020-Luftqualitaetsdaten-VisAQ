@@ -30,7 +30,7 @@ namespace de.visaq.view {
 
         /*private*/ view : Array<de.visaq.view.View> = null;
 
-        /*private*/ navbar : de.visaq.view.elements.navbar.Navbar;
+        static navbar : de.visaq.view.elements.navbar.Navbar = null;
 
         /**
          * Main method of the Frontend.
@@ -38,28 +38,29 @@ namespace de.visaq.view {
          * @param {Array} args Input
          */
         public static main(args : string[]) {
-            alert("This example writes \'Hello world\' in the document!");
-            console.info("Starting VisAQ.js example");
-            let e : HTMLElement = document.getElementById("target");
-            e.innerHTML = "Hello world!";
             VisAQ.setInstance(new VisAQ());
             let cookieNotice : de.visaq.view.elements.CookieNotice = new de.visaq.view.elements.CookieNotice();
-            cookieNotice.popup();
-            let airQualityData1 : de.visaq.view.elements.airquality.AirQualityData;
+            window.onload = ((cookieNotice) => {
+                return (e) => {
+                    cookieNotice.popup();
+                    VisAQ.navbar.show();
+                    return e;
+                }
+            })(cookieNotice);
+            let airQualityData : de.visaq.view.elements.airquality.AirQualityData;
         }
 
         /**
          * Notifies the Navbar about a user input.
          */
         public userInput() {
-            this.navbar.notifyObserver();
-            this.navbar.show();
-            this.navbar.showView();
+            VisAQ.navbar.notifyObserver();
+            VisAQ.navbar.show();
+            VisAQ.navbar.showView();
         }
 
         constructor() {
             if(this.airQualityData===undefined) this.airQualityData = null;
-            if(this.navbar===undefined) this.navbar = null;
         }
     }
     VisAQ["__class"] = "de.visaq.view.VisAQ";

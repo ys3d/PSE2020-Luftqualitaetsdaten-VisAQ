@@ -1,14 +1,16 @@
 package de.visaq.view.elements.navbar;
 
 import static def.dom.Globals.document;
+import static def.dom.Globals.window;
 
 import java.util.ArrayList;
 
 import de.visaq.view.NavbarObserver;
 import de.visaq.view.View;
 import de.visaq.view.elements.airquality.AirQualityData;
-import def.dom.HTMLElement;
-import jsweet.util.StringTypes.button;
+import def.dom.Element;
+import def.dom.HTMLCanvasElement;
+
 
 /**
  * The Navbar shows the Navigation Bar and gives access to the Air Quality Data, Toolbar, Expert
@@ -23,7 +25,7 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
     private AirQualityData currentAirQualityData;
     private View currentView;
     private ArrayList<NavbarObserver> observer;
-    HTMLElement navbar = document.createElement("Navbar");
+    HTMLCanvasElement navbar = (HTMLCanvasElement) document.getElementById("canvas");
     
 
     /**
@@ -45,12 +47,19 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
         }
         this.toolbar = new Toolbar();
         this.searchbar = new SearchBar();
-        this.expertViewFilter = new ExpertViewFilter();
+        this.expertViewFilter = new ExpertViewFilter(); 
 
     }
 
     @Override
     public void show() {
+        Element body = document.querySelector("body");
+        double size = Math.min(body.clientHeight, body.clientWidth);
+        navbar.width = size - 20;
+        navbar.height = size - 20;
+        navbar.style.top = (body.clientHeight / 2 - size / 2 + 10) + "px";
+        navbar.style.left = (body.clientWidth / 2 - size / 2 + 10) + "px";
+      
         if (expertMapView) {
             expertViewFilter.show();
         }
@@ -59,10 +68,11 @@ public class Navbar implements ObservedNavbarSubject, NavbarElement {
         searchbar.show();
         // TODO Auto-generated method stub
         navbar.onmouseenter = e -> {
-        	openToolbar();
-			return e;
+            openToolbar();
+            return e;
         };
-        document.body.appendChild(button);
+        document.body.appendChild(navbar);
+        
     }
 
     /**

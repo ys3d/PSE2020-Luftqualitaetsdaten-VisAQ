@@ -1,18 +1,18 @@
 package de.visaq.view;
 
+import static def.dom.Globals.window;
+
 import java.util.ArrayList;
 
 import de.visaq.view.elements.CookieNotice;
 import de.visaq.view.elements.airquality.AirQualityData;
 import de.visaq.view.elements.navbar.Navbar;
-import jsweet.dom.HTMLElement;
-import static jsweet.dom.Globals.*;
 
 /**
  * Main class of the Frontend.
  */
 public class VisAQ {
-	private AirQualityData[] airQualityData;
+    private AirQualityData[] airQualityData;
     private static VisAQ instance = new VisAQ();
    
     /**
@@ -36,7 +36,7 @@ public class VisAQ {
     }
     
     private ArrayList<View> view = null;
-    private Navbar navbar;
+    private static Navbar navbar;
 
     /**
      * Main method of the Frontend.
@@ -45,18 +45,14 @@ public class VisAQ {
      */
     public static void main(String[] args) {
     	
-    	alert("This example writes 'Hello world' in the document!");
-    	System.out.println("Starting VisAQ.js example");
-		HTMLElement e = document.getElementById("target");
-		e.innerHTML = "Hello world!";
-        
-		
-		
-		setInstance(new VisAQ()); 
+        setInstance(new VisAQ()); 
         CookieNotice cookieNotice = new CookieNotice();
-        cookieNotice.popup();
-        
-        AirQualityData airQualityData1;
+        window.onload = e -> {
+            cookieNotice.popup();
+            navbar.show();
+            return e;
+        };
+        AirQualityData airQualityData;
     }
    
     /**

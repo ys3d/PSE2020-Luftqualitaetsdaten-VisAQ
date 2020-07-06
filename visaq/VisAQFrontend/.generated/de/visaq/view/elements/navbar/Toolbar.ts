@@ -7,6 +7,18 @@ namespace de.visaq.view.elements.navbar {
     export class Toolbar implements de.visaq.view.elements.navbar.NavbarElement {
         /*private*/ historicalMapView : boolean = false;
 
+        toolbar : HTMLElement = document.createElement("toolbar");
+
+        /*private*/ diyButton : HTMLElement = document.createElement("DIY");
+
+        /*private*/ pmDefButton : HTMLElement = document.createElement("PM Definition");
+
+        /*private*/ causesPmButton : HTMLElement = document.createElement("PM Causes");
+
+        /*private*/ smartAqButton : HTMLElement = document.createElement("SmartAQNet");
+
+        /*private*/ __historicalData : HTMLElement = document.createElement("Historical Data");
+
         public constructor() {
         }
 
@@ -15,6 +27,11 @@ namespace de.visaq.view.elements.navbar {
          * @private
          */
         /*private*/ diy() {
+            this.diyButton.onclick = (e) => {
+                window.location.replace("https://www.smartaq.net/de/participate/");
+                return e;
+            };
+            this.toolbar.appendChild(this.diyButton);
         }
 
         /**
@@ -22,6 +39,7 @@ namespace de.visaq.view.elements.navbar {
          * @private
          */
         /*private*/ pmDefiniton() {
+            this.toolbar.appendChild(this.pmDefButton);
         }
 
         /**
@@ -36,6 +54,11 @@ namespace de.visaq.view.elements.navbar {
          * @private
          */
         /*private*/ smartAqNet() {
+            this.smartAqButton.onclick = (e) => {
+                window.location.replace("https://www.smartaq.net/en/dashboard/#/home");
+                return e;
+            };
+            this.toolbar.appendChild(this.smartAqButton);
         }
 
         /**
@@ -44,6 +67,7 @@ namespace de.visaq.view.elements.navbar {
          */
         /*private*/ historicalData() {
             this.setHistoricalMapView(true);
+            this.toolbar.appendChild(this.__historicalData);
         }
 
         /**

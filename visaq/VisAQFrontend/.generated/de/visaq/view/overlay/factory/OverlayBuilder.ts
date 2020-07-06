@@ -36,8 +36,8 @@ namespace de.visaq.view.overlay.factory {
         public buildOverlays(airQuality : de.visaq.view.elements.airquality.AirQualityData, latLngBounds : L.LatLngBounds, time : java.time.Instant) : Array<L.Layer> {
             let layers : Array<L.Layer> = <any>([]);
             let data : de.visaq.model.SensorDatum[] = null;
-            for(let index140=0; index140 < this.factories.length; index140++) {
-                let factory = this.factories[index140];
+            for(let index348=0; index348 < this.factories.length; index348++) {
+                let factory = this.factories[index348];
                 {
                     /* add */(layers.push(factory.build(airQuality, data))>0);
                 }

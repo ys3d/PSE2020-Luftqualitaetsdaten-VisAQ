@@ -26,6 +26,8 @@ namespace de.visaq.view.elements.navbar {
 
         /*private*/ observer : Array<de.visaq.view.NavbarObserver>;
 
+        navbar : HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
+
         public constructor(currentAirQualityData : de.visaq.view.elements.airquality.AirQualityData, airQualityData : de.visaq.view.elements.airquality.AirQualityData[], currentView : de.visaq.view.View, views : Array<de.visaq.view.View>) {
             if(this.airQualityData===undefined) this.airQualityData = null;
             if(this.toolbar===undefined) this.toolbar = null;
@@ -38,8 +40,8 @@ namespace de.visaq.view.elements.navbar {
             this.currentAirQualityData = currentAirQualityData;
             this.currentView = currentView;
             this.observer = <any>([]);
-            for(let index137=0; index137 < views.length; index137++) {
-                let view = views[index137];
+            for(let index345=0; index345 < views.length; index345++) {
+                let view = views[index345];
                 {
                     /* add */(this.observer.push(view)>0);
                 }
@@ -53,11 +55,22 @@ namespace de.visaq.view.elements.navbar {
          * 
          */
         public show() {
+            let body : Element = document.querySelector("body");
+            let size : number = Math.min(body.clientHeight, body.clientWidth);
+            this.navbar.width = size - 20;
+            this.navbar.height = size - 20;
+            this.navbar.style.top = (body.clientHeight / 2 - size / 2 + 10) + "px";
+            this.navbar.style.left = (body.clientWidth / 2 - size / 2 + 10) + "px";
             if(this.expertMapView) {
                 this.expertViewFilter.show();
             }
             this.showAirQualityDatas();
             this.searchbar.show();
+            this.navbar.onmouseenter = (e) => {
+                this.openToolbar();
+                return e;
+            };
+            document.body.appendChild(this.navbar);
         }
 
         /**
@@ -72,16 +85,6 @@ namespace de.visaq.view.elements.navbar {
          */
         public showView() {
             this.currentView.show();
-        }
-
-        /**
-         * Sets the instance of the current Air Quality Data.
-         * 
-         * @param {de.visaq.view.elements.airquality.AirQualityData} currentAirQualityData A instance of Air Quality Data.
-         */
-        public setCurrentAirQualityData(currentAirQualityData : de.visaq.view.elements.airquality.AirQualityData) {
-            this.currentAirQualityData = currentAirQualityData;
-            this.notifyObserver();
         }
 
         /**
@@ -104,8 +107,8 @@ namespace de.visaq.view.elements.navbar {
          * 
          */
         public notifyObserver() {
-            for(let index138=0; index138 < this.observer.length; index138++) {
-                let nb = this.observer[index138];
+            for(let index346=0; index346 < this.observer.length; index346++) {
+                let nb = this.observer[index346];
                 {
                     nb.update(this.searchbar, this.currentAirQualityData, this.expertMapView, this.expertViewFilter, this.toolbar.isHistoricalMapView());
                 }
@@ -117,12 +120,23 @@ namespace de.visaq.view.elements.navbar {
          * @private
          */
         /*private*/ showAirQualityDatas() {
-            for(let index139=0; index139 < this.airQualityData.length; index139++) {
-                let airQualityData = this.airQualityData[index139];
+            for(let index347=0; index347 < this.airQualityData.length; index347++) {
+                let airQualityData = this.airQualityData[index347];
                 {
                     let name : string = airQualityData.name;
                 }
             }
+        }
+
+        /**
+         * Sets the instance of the current Air Quality Data.
+         * 
+         * @param {de.visaq.view.elements.airquality.AirQualityData} currentAirQualityData A instance of Air Quality Data.
+         * @private
+         */
+        /*private*/ setCurrentAirQualityData(currentAirQualityData : de.visaq.view.elements.airquality.AirQualityData) {
+            this.currentAirQualityData = currentAirQualityData;
+            this.notifyObserver();
         }
 
         /**

@@ -1,5 +1,6 @@
 package de.visaq.view.elements.navbar;
 
+
 /**
  * Searchbar that the User can use in order to look up a particular city using the city name or the
  * postal code of the city.
@@ -17,7 +18,6 @@ public class SearchBar implements NavbarElement {
 
     @Override
     public void show() {
-
     }
 
     /**

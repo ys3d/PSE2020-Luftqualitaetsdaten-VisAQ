@@ -2,10 +2,9 @@
 namespace de.visaq.view.elements.airquality {
     /**
      * Sole constructor of the class.
-     * 
-     * @param {string} name  The name
-     * @param {java.awt.Color} primaryColor
-     * @param {java.awt.Color} secondaryColor
+     * @param {string} name           Name of the data
+     * @param {java.awt.Color} primaryColor   PrimaryColor used for gradient
+     * @param {java.awt.Color} secondaryColor SecondaryColor used for gradient
      * @class
      */
     export abstract class AirQualityData {
